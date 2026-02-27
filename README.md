@@ -1,4 +1,4 @@
-# EA Stream Service
+# Realtime Stream Service
 
 Real-time Stock/Match Data Streaming Service
 
@@ -35,8 +35,8 @@ uvicorn main:app --reload
 docker-compose up --build
 
 # Or just run the container
-docker build -t ea-stream-service .
-docker run -p 8000:8000 ea-stream-service
+docker build -t realtime-stream-service .
+docker run -p 8000:8000 realtime-stream-service
 ```
 
 ## API Endpoints
@@ -92,25 +92,25 @@ ws.onmessage = (event) => {
 ```bash
 # Build and push to ECR
 aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ACCOUNT.dkr.ecr.us-west-2.amazonaws.com
-docker build -t ea-stream-service .
-docker tag ea-stream-service:latest ACCOUNT.dkr.ecr.us-west-2.amazonaws.com/ea-stream-service:latest
-docker push ACCOUNT.dkr.ecr.us-west-2.amazonaws.com/ea-stream-service:latest
+docker build -t realtime-stream-service .
+docker tag realtime-stream-service:latest ACCOUNT.dkr.ecr.us-west-2.amazonaws.com/realtime-stream-service:latest
+docker push ACCOUNT.dkr.ecr.us-west-2.amazonaws.com/realtime-stream-service:latest
 ```
 
 ### GCP Cloud Run
 
 ```bash
 # Build and deploy
-gcloud builds submit --tag gcr.io/PROJECT_ID/ea-stream-service
-gcloud run deploy ea-stream-service --image gcr.io/PROJECT_ID/ea-stream-service --platform managed --region us-central1 --allow-unauthenticated
+gcloud builds submit --tag gcr.io/PROJECT_ID/realtime-stream-service
+gcloud run deploy realtime-stream-service --image gcr.io/PROJECT_ID/realtime-stream-service --platform managed --region us-central1 --allow-unauthenticated
 ```
 
 ### Azure Container Instances
 
 ```bash
 # Build and deploy
-az acr build --registry myregistry --image ea-stream-service:latest .
-az container create --resource-group mygroup --name ea-stream-service --image myregistry.azurecr.io/ea-stream-service:latest --cpu 1 --memory 1 --port 8000
+az acr build --registry myregistry --image realtime-stream-service:latest .
+az container create --resource-group mygroup --name realtime-stream-service --image myregistry.azurecr.io/realtime-stream-service:latest --cpu 1 --memory 1 --port 8000
 ```
 
 ## License
